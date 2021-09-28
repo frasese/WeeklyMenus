@@ -1,2 +1,2 @@
-# WeeklyMenus
+# DentalManager
 Created with CodeSandbox

@@ -1,0 +1,38 @@
+
+.wrapper {
+  padding: 20px;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.white-layout-background {
+  background: #fff;
+}
+
+.main-layout {
+  min-height: 100vh;
+
+  .site-layout {
+
+    .site-layout-header {
+      @extend .white-layout-background;
+    }
+
+      
+    .site-layout-content {
+      @extend .white-layout-background;
+      margin: 32px 16px 0px;
+      padding: 24px; 
+      height: 100%;
+      min-height: 360px;
+    }
+
+    .site-layout-footer{
+      text-align: center;
+    }
+  }
+}
