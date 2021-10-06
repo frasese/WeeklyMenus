@@ -5,7 +5,7 @@ import model from "../../models/Recipe";
 
 import DynamicTable from "../Common/DynamicTable";
 
-const Recipes = (props) => {
+const RecipeList = (props) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -41,4 +41,4 @@ const Recipes = (props) => {
   );
 };
 
-export default Recipes;
+export default RecipeList;

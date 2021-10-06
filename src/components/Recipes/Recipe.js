@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
+import DynamicForm from "../Common/DynamicForm";
+
 import RecipeService from "../../services/recipe.service";
 import model from "../../models/Recipe";
 
-import DynamicForm from "../Common/DynamicForm";
-
 const Recipe = (props) => {
   const [recipe, setRecipe] = useState({});
+  const [error, setError] = useState("");
   const submitText = props.recipeId === ":new" ? "Crear" : "Guardar";
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const Recipe = (props) => {
     }
   }, [props.recipeId]);
 
-  const handleSubmit = (values) => {
+  /*const handleSubmit = (values) => {
     //event.preventDefault();
 
     console.log("Data:", recipe);
@@ -35,6 +36,25 @@ const Recipe = (props) => {
         console.log(`Error saving Recipe (${props.recipeId}):`, error);
       }
     );
+  };*/
+  const handleSubmit = async (values) => {
+    try{
+      const response = await RecipeService.postRecipe(recipe);
+      console.log("POST response: ",response);
+      setRecipe(response);
+      props.navigate('../');
+    } catch(err) {
+        console.log("AQUÍ NO DEBERÍA LLEGAR NUNCA");
+        console.dir(err);
+        //console.log("AQUÍ NO DEBERÍA LLEGAR NUNCA -> POST error: ",err.response.data?.error);
+        const _content =
+          (err.response &&
+           err.response.data &&
+           err.response.data.error) ||
+          err.message ||
+          err.toString();
+      setError(err);
+    }
   };
 
   if (props.recipeId !== ":new" && !recipe) {

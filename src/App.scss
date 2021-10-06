@@ -36,3 +36,21 @@
     }
   }
 }
+
+.ant-input-number {
+  width: 100% !important;
+}
+
+.ingredients {
+  > .ant-space-item:nth-child(1) {
+    flex: 12
+  }
+  
+  > .ant-space-item:nth-child(2) {
+    flex: 3
+  }
+  
+  > .ant-space-item:nth-child(3) {
+    flex: 1
+  }
+}

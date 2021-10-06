@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { navigate, useLocation } from "@reach/router";
-import { Layout, Form, Input } from "antd";
+import { Layout, Form, Input, Row, Col } from "antd";
 import Button from "antd-button-color";
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 import AuthService from "../../services/auth.service";
 
@@ -29,7 +30,11 @@ const Login = () => {
   return (
     <Layout className="site-layout-background login-layout">
       <Content>
-        <h1>Introduzca usuario y contraseña</h1>
+        <Row>
+          <Col offset={4}>
+            <h1>Introduzca usuario y contraseña</h1>
+          </Col>
+        </Row>
         <Form
           layout="horizontal"
           onFinish={handleSubmit}
@@ -37,10 +42,13 @@ const Login = () => {
           wrapperCol={{ span: 14 }}
         >
           <Form.Item name="username" label="Usuario">
-            <Input type="text" />
+            <Input type="text" placeholder="Login" />
           </Form.Item>
           <Form.Item name="password" label="Contraseña">
-            <Input type="password" />
+            <Input.Password
+              placeholder="Contraseña"
+              iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+            />
           </Form.Item>
           <Form.Item
             wrapperCol={{

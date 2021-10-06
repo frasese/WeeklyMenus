@@ -19,8 +19,8 @@ const MainMenu = () => {
       //Si cambia porque se ha pulsado otro tipo de enlace o se accede directamente por URL
       //Seleccionamos el elemento del menu acorde a la URL
       switch (true) {
-        case /^\/client/.test(location.pathname):
-          setSelectedMenuKeys(["c"]);
+        case /^\/recipe/.test(location.pathname):
+          setSelectedMenuKeys(["r"]);
           break;
         default:
           setSelectedMenuKeys(["h"]);

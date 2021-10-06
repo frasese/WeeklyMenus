@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import { Link } from "@reach/router";
-import { Form, Input, Checkbox } from "antd";
+import { Form, Input, Checkbox, Space } from "antd";
 import Button from "antd-button-color";
+import { SmileOutlined, MehOutlined, FrownOutlined } from '@ant-design/icons';
+
+import DynamicList from "./DynamicList";
+import Semaphore from "./Semaphore";
 
 export default function DynamicForm({
   model,
@@ -16,7 +20,7 @@ export default function DynamicForm({
   const getProperties = (p) => {
     let ret = {
       labelCol: { span: 4 },
-      wrapperCol: { span: 14 }
+      wrapperCol: { span: 20 }
     };
     switch (p.type) {
       case "checkbox":
@@ -30,7 +34,7 @@ export default function DynamicForm({
 
   const buttonItemLayout = {
     wrapperCol: {
-      span: 14,
+      span: 20,
       offset: 4
     }
   };
@@ -43,11 +47,14 @@ export default function DynamicForm({
       //No sería necesario, pero NO establecemos el valor en los input tipo checkbox (se gestionan a través del checked)
       form.setFieldsValue(
         model.reduce((res, p) => {
-          //console.log("[" + p.dataIndex + "]:", item[p.dataIndex]);
+          //console.log("setFieldsValue[" + p.dataIndex + "]:", item[p.dataIndex]);
           //if (p.type === "checkbox") {
           //  return { ...res };
           //}
-          return { ...res, [p.dataIndex]: item[p.dataIndex] || "" };
+          /*if (p.type === "dynamicList") {
+             return { ...res, ['ingredients.name']: item['ingredients'][0].value };
+          }*/
+          return { ...res, [p.dataIndex]: (item[p.dataIndex] !== undefined ) ? item[p.dataIndex] : "" };
         }, {})
       );
     }
@@ -58,7 +65,8 @@ export default function DynamicForm({
   const handleValuesChange = (changedValues, allValues) => {
     //console.log("item:", item);
     //console.log("changedValues:", changedValues);
-    setItem({ ...item, ...changedValues });
+    //console.log("allValues:", allValues);
+    setItem({ ...item, ...allValues });
   };
 
   //En el caso de los checkboxes, queremos guardar el atributo "checked" y no "value" en el "item"
@@ -88,6 +96,12 @@ export default function DynamicForm({
               //</Checkbox>
             );
             break;
+          case "dynamicList":
+            inputItem = <DynamicList model={p} />
+            break;
+          case "semaphore":
+              inputItem = <Semaphore isInput={true} />
+              break;
           default:
             inputItem = <Input type={p.type || "text"} placeholder={p.text} />;
         }
@@ -111,14 +125,14 @@ export default function DynamicForm({
     <>
       <div>User {JSON.stringify(item, null, 2)}</div>
 
+{/*
       <div className="alert alert-danger alert-dismissible fade show">
-        <strong>Error!</strong> A problem has been occurred while submitting
-        your data.
+        <strong>Error!</strong> A problem has been occurred while submitting your data.
         <button type="button" className="close" data-dismiss="alert">
           &times;
         </button>
       </div>
-
+*/}
       <Form
         form={form}
         layout="horizontal"
